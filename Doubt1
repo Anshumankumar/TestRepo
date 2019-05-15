@@ -1,0 +1,110 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool knight(int board[8][8],int x,int y,int i);
+int main()
+{
+  int board[8][8];// 8X8 Board
+  memset(board,0,sizeof(board[0][0])*8*8); // Board Initialized to 0
+  board[0][0]=1; // Knight stats at 0,0 so 1st move is at 0,0
+  knight(board,0,0,1);  // knight function takes board,starting position(0,0) and initial move number which is 1
+
+  for(int i=0;i<8;i++)
+    {
+        for(int j=0;j<8;j++)
+        {
+            cout<<board[i][j]<<"  ";
+        }
+        cout<<endl;
+    }
+}
+bool knight(int board[8][8],int x,int y,int i)
+{
+    if(i==64)
+    {
+        true;// when i=64 that indicates that the knight has covered the whole board, hence return true
+    }
+    //exploring in various directions for a valid cell to place the knight
+     if(x+2<8 && y+1<8 && board[x+2][y+1]==0)  // two cells below and one cell forward
+    {
+        board[x+2][y+1]=i+1; // knight comes at this position 
+        if(knight(board,x+2,y+1,i+1)==true)  // through this recursive call current x+2 and y+1 becomes current x and y
+        {
+            return true;
+        }
+        board[x+2][y+1]=0; // if above call gets false mark current x and y as 0 and explore other options
+                           // backtracking step
+    }
+    // Below if-else conditions works just like above..
+     if(x+1<8 && y+2<8 && board[x+1][y+2]==0) // two cells forward and one cell below and likewise..
+    {
+        board[x+1][y+2]=i+1;
+        if(knight(board,x+1,y+2,i+1)==true)
+        {
+            return true;
+        }
+       board[x+1][y+2]=0;
+    }
+
+     if(x-1>=0 && y+2<8 && board[x-1][y+2]==0)
+    {
+        board[x-1][y+2]=i+1;
+        if(knight(board,x-1,y+2,i+1)==true)
+        {
+           return true;
+        }
+         board[x-1][y+2]=0;
+    }
+
+     if(x-2>=0 && y+1<8 && board[x-2][y+1]==0)
+    {
+        board[x-2][y+1]=i+1;
+        if(knight(board,x-2,y+1,i+1)==true)
+        {
+           return true;
+        }
+       board[x-2][y+1]=0;
+    }
+
+     if(x-2>=0 && y-1>=0 && board[x-2][y-1]==0)
+    {
+        board[x-2][y-1]=i+1;
+        if(knight(board,x-2,y-1,i+1)==true)
+        {
+            return true;
+        }
+         board[x-2][y-1]=0;
+    }
+     if(x-1>=0 && y-2>=0 && board[x-1][y-2]==0)
+    {
+        board[x-1][y-2]=i+1;
+        if(knight(board,x-1,y-2,i+1)==true)
+        {
+            return true;
+        }
+         board[x-1][y-1]=0;
+    }
+     if(x+1<8 && y-2>=0 && board[x+1][y-2]==0)
+    {
+        board[x+1][y-2]=i+1;
+        if(knight(board,x+1,y-2,i+1)==true)
+        {
+           return true;
+        }
+        board[x+1][y-2]=0;
+    }
+
+     if(x+2<8 && y-1>=0 && board[x+2][y-1]==0)
+    {
+        board[x+2][y-1]=i+1;
+        if(knight(board,x+2,y-1,i+1)==true)
+        {
+            return true;
+        }
+         board[x+2][y-1]=0;
+    }
+    else
+    {
+        return false;  // return false to backtrack
+    }
+
+}
